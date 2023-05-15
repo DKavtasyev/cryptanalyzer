@@ -19,7 +19,7 @@ public class Application
 
 	public Result run()
 	{
-		CustomData customData = controller.getView().getParameters();
+		CustomData customData = controller.getView().getCustomerParameters();
 		String mode = customData.getFlag();
 		Function function = getFunction(mode);
 		return function.execute(customData);

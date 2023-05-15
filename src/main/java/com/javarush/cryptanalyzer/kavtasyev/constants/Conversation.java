@@ -70,7 +70,7 @@ public class Conversation
 
 			"""
 			Работа программы будет показана на примере зашифрованного файла из папки txt под названием
-			Dostoevskiy_encrypted_key=20.
+			Dostoevskiy_encrypted_key=5.
 			""",
 
 			"Для расшифрования принят пример текста из папки txt проекта под названием Gogol_normal.txt."};
@@ -87,9 +87,9 @@ public class Conversation
 	public static final String PROPER_FILE_EXTENSION = ".txt";
 
 	public static final String INEXISTENT_COMMAND = "Несуществующая команда. Повтори попытку";
-	public static final String WRONG_FILE_PATH_FOR_ENCRYPT = "Это не путь к текстовому файлу, введи пожалуйста путь к текстовому файлу, который будем зашифровывать.";
-	public static final String WRONG_FILE_PATH_FOR_DECRYPT = "Это не путь к текстовому файлу, введи пожалуйста путь к текстовому файлу, который будем расшифровывать.";
-	public static final String WRONG_PATH_TO_REFERENCE_FILE = "Это не путь к текстовому файлу, введи пожалуйста путь к незашифрованному текстовому файлу, который послужит опорным для дешифрования.";
+	public static final String WRONG_FILE_PATH_FOR_ENCRYPT = "Это не путь к текстовому файлу. Введи пожалуйста путь к текстовому файлу, который будем зашифровывать.";
+	public static final String WRONG_FILE_PATH_FOR_DECRYPT = "Это не путь к текстовому файлу. Введи пожалуйста путь к текстовому файлу, который будем расшифровывать.";
+	public static final String WRONG_PATH_TO_REFERENCE_FILE = "Это не путь к текстовому файлу. Введи пожалуйста путь к незашифрованному текстовому файлу, который послужит опорным для дешифрования.";
 	public static final String INEXISTENT_FILE = "Такого файла не существует. Повтори попытку";
 	public static final String ENCRYPT_KEY_HAS_SET = "Шифровальный ключ сгенерирован автоматически и равен ";
 	public static final String INCORRECT_KEY = "Некорректный ввод. Пожалуйста введи корректный ключ.";

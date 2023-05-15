@@ -5,7 +5,7 @@ import com.javarush.cryptanalyzer.kavtasyev.entity.Result;
 
 public interface View
 {
-    CustomData getParameters();
+    CustomData getCustomerParameters();
 
 
 	void printResult(Result result);

@@ -39,7 +39,7 @@ public class Encrypt extends Function
 					{
 						if (lineLetters[i] == alphabet[j])                                  // Если буква из алфовита совпадает с буквой из строки,
 						{
-							lineLetters[i] = alphabet[(j + key) % alphabet.length];   // То происходит замена буквы из строки на символ из алфавита, сдвинутый на keyNumber позиций вправо (в сторону увеличения)
+							lineLetters[i] = alphabet[(j + key) % alphabet.length];			// То происходит замена буквы из строки на символ из алфавита, сдвинутый на keyNumber позиций вправо (в сторону увеличения)
 							break;                                                          // После этого поиск символа в алфавите шифрования прекращается.
 						}
 					}

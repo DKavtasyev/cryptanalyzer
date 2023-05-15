@@ -13,10 +13,10 @@ import java.util.Random;
 
 public class ConsoleView implements View
 {
+	private CustomData customData;
 	@Override
-	public CustomData getParameters()
+	public CustomData getCustomerParameters()
 	{
-		CustomData customData = null;
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
 		{
 			System.out.println(Conversation.GREETINGS);

@@ -4,10 +4,13 @@ import com.javarush.cryptanalyzer.kavtasyev.constants.EncryptionAlphabet;
 import com.javarush.cryptanalyzer.kavtasyev.constants.FrequentWords;
 import com.javarush.cryptanalyzer.kavtasyev.entity.LetterOccurrence;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Service
 {
@@ -16,27 +19,32 @@ public class Service
 		int correlationCoefficient = 0;
 		for(String prefix : FrequentWords.PREFIXES)
 		{
-			Pattern p = Pattern.compile(String.format("( |^)%s[А-Яа-яЁё]+", prefix));
-			Matcher m = p.matcher(text);
+			Pattern prefixes = Pattern.compile(String.format("( |^)%s[А-Яа-яЁё]+", prefix));
+			Matcher m = prefixes.matcher(text);
 			while(m.find())
 				correlationCoefficient++;
 		}
 
 		for(String ending : FrequentWords.ENDINGS)
 		{
-			Pattern p = Pattern.compile(String.format("[А-Яа-яЁё]+%s( |$|\\p{P})", ending));
-			Matcher m = p.matcher(text);
+			Pattern endings = Pattern.compile(String.format("[А-Яа-яЁё]+%s( |$|\\p{P})", ending));
+			Matcher m = endings.matcher(text);
 			while(m.find())
 				correlationCoefficient++;
 		}
 
 		for(String frequentWord : FrequentWords.FREQUENT_WORDS)
 		{
-			Pattern p = Pattern.compile(String.format("( |^)%s( |$|\\p{P})", frequentWord));
-			Matcher m = p.matcher(text);
+			Pattern frequentWords = Pattern.compile(String.format("( |^)%s( |$|\\p{P})", frequentWord));
+			Matcher m = frequentWords.matcher(text);
 			while(m.find())
 				correlationCoefficient++;
 		}
+
+		Pattern punctuation = Pattern.compile("([а-яА-ЯЁё]+)(\\p{P})([ $\\n])");
+		Matcher m = punctuation.matcher(text);
+		while(m.find())
+			correlationCoefficient++;
 
 		return correlationCoefficient;
 	}
@@ -44,7 +52,7 @@ public class Service
 	public LetterOccurrence[] calculateStatistics(ArrayList<String> text)
 	{
 		TreeMap<Character, Double> lettersStatistics = new TreeMap<>();
-		char[] alphabet = EncryptionAlphabet.getAlphabet();
+		char[] alphabet = EncryptionAlphabet.getLowercaseAlphabet();
 		int numberOfLetters = 0;
 
 		for(char c : alphabet)
@@ -83,7 +91,6 @@ public class Service
 				}
 			}
 		}
-
 		return letterOccurrence;
 	}
 
@@ -113,5 +120,16 @@ public class Service
 			shiftedFile.add(builder + "\n");
 		}
 		return shiftedFile;
+	}
+
+	public ArrayList<String> swapLetters(ArrayList<String> list, char c1, char c2)
+	{
+		ArrayList<String> newList = new ArrayList<>();
+		char temp = '$';
+		for (String s : list)
+		{
+			newList.add(s.replace(c1, temp).replace(c2, c1).replace(temp, c2));
+		}
+		return newList;
 	}
 }
