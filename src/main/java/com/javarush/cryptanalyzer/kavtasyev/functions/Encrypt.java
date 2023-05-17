@@ -1,6 +1,7 @@
 package com.javarush.cryptanalyzer.kavtasyev.functions;
 
 import com.javarush.cryptanalyzer.kavtasyev.constants.EncryptionAlphabet;
+import com.javarush.cryptanalyzer.kavtasyev.constants.FilePaths;
 import com.javarush.cryptanalyzer.kavtasyev.entity.CustomData;
 import com.javarush.cryptanalyzer.kavtasyev.entity.Result;
 import com.javarush.cryptanalyzer.kavtasyev.exception.EncryptionException;
@@ -20,10 +21,18 @@ public class Encrypt extends Function
 			String unencryptedFilePath = customData.getStr1();
 			int key = Integer.parseInt(customData.getStr2());
 			Instant start = Instant.now();                                                  // Фиксируется начальный отсчёт времени шифрования для измерения затраченного времени на операцию
-			int length = unencryptedFilePath.length();                                      // Длина строки, содержащей путь к файлу, сохраняется в переменную.
 			String encryptedFilePath;                                                       // Создаётся строка для нового имени файла
-			encryptedFilePath = unencryptedFilePath.substring(0, length - 4) +
-					"_encrypted" + unencryptedFilePath.substring(length - 4, length);       // Создаётся новое имя файла, куда будет записан зашифрованный текст.
+			if (unencryptedFilePath.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_ENCRYPT))
+			{
+				encryptedFilePath = FilePaths.OUTPUT_DEFAULT_FILE_FOR_ENCRYPT;
+			}
+			else
+			{
+				int length = unencryptedFilePath.length();                                      // Длина строки, содержащей путь к файлу, сохраняется в переменную.
+				encryptedFilePath = unencryptedFilePath.substring(0, length - 4) +
+						"_encrypted" + unencryptedFilePath.substring(length - 4, length);       // Создаётся новое имя файла, куда будет записан зашифрованный текст.
+			}
+
 			ArrayList<String> unencryptedFile = transceiver.readFile(unencryptedFilePath);  // Создаётся лист для незашифрованного файла. Он будет содержать незашифрованный текст.
 			ArrayList<String> encryptedFile = new ArrayList<>();                            // Создаётся лист для зашифрованного файла.
 			char[] alphabet = EncryptionAlphabet.getAlphabet();                             // Делается рабочая копия алфовита шифрования.
@@ -54,7 +63,7 @@ public class Encrypt extends Function
 		}
 		catch (IOException e)
 		{
-			return new Result(ResultCode.ERROR, e.getMessage());
+			return new Result(ResultCode.ERROR, e);
 		}
 		catch (Exception e)
 		{

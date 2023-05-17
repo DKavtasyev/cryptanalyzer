@@ -9,6 +9,10 @@ public class Result
 	private Exception exception;
 	private String time;
 
+	public Result(ResultCode resultCode)
+	{
+		this.resultCode = resultCode;
+	}
 	public Result(ResultCode resultCode, String time)
 	{
 		this.resultCode = resultCode;
@@ -19,11 +23,6 @@ public class Result
 	{
 		this.resultCode = resultCode;
 		this.exception = exception;
-	}
-
-	public Result(ResultCode resultCode)
-	{
-		this.resultCode = resultCode;
 	}
 
 

@@ -1,19 +1,15 @@
 package com.javarush.cryptanalyzer.kavtasyev.functions;
 
+import com.javarush.cryptanalyzer.kavtasyev.constants.FilePaths;
 import com.javarush.cryptanalyzer.kavtasyev.entity.CustomData;
 import com.javarush.cryptanalyzer.kavtasyev.entity.LetterOccurrence;
 import com.javarush.cryptanalyzer.kavtasyev.entity.Result;
 import com.javarush.cryptanalyzer.kavtasyev.exception.DecryptionException;
 import com.javarush.cryptanalyzer.kavtasyev.repository.ResultCode;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StatisticalDecrypt extends Function
@@ -29,10 +25,18 @@ public class StatisticalDecrypt extends Function
 			Instant start = Instant.now();																		// Начало отсчёта времени на выполнение статистического анализа
 			String encryptedFilePath = customData.getStr1();													// Извлечение пользовательских данных: путь к зашифрованному файлу
 			String normalFilePath = customData.getStr2();														// Извлечение пользовательских данных: путь к опорному файлу
-			int length = encryptedFilePath.length();                                        					// Длина строки, содержащей путь к файлу, сохраняется в переменную.
 			String decryptedFilePath;                                                       					// Создаётся строка, содержащая путь и имя файла, сформированного в результате расшифровывания программой переданного ей файла
-			decryptedFilePath = encryptedFilePath.substring(0, length - 4) +
-				"_decryptedstatistically" + encryptedFilePath.substring(length - 4, length); 					// Создаётся новое имя файла, куда будет записан расшифрованный текст.
+			if (encryptedFilePath.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_STATISTICAL_DECRYPT))
+			{
+				decryptedFilePath = FilePaths.OUTPUT_DEFAULT_FILE_FOR_STATISTICAL_DECRYPT;
+			}
+			else
+			{
+				int length = encryptedFilePath.length();                                        				// Длина строки, содержащей путь к файлу, сохраняется в переменную.
+				decryptedFilePath = encryptedFilePath.substring(0, length - 4) +
+						"_decryptedstatistically" + encryptedFilePath.substring(length - 4, length); 			// Создаётся новое имя файла, куда будет записан расшифрованный текст.
+			}
+
 			ArrayList<String> encryptedFile = transceiver.readFile(encryptedFilePath);		 					// Чтение зашифрованного файла и сохранение его в лист
 			ArrayList<String> normalFile = transceiver.readFile(normalFilePath);			 					// Чтение файла, с помощью которого будет сформирована статистика вхождений разных букв
 			ArrayList<String> lowercaseEncryptedFile = (ArrayList<String>) encryptedFile.stream().
@@ -58,7 +62,7 @@ public class StatisticalDecrypt extends Function
 		}
 		catch(IOException e)
 		{
-			return new Result(ResultCode.ERROR, e.getMessage());
+			return new Result(ResultCode.ERROR, e);
 		}
 		catch(Exception e)
 		{

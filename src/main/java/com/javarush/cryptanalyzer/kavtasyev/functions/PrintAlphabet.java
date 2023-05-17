@@ -1,6 +1,7 @@
 package com.javarush.cryptanalyzer.kavtasyev.functions;
 
 import com.javarush.cryptanalyzer.kavtasyev.constants.EncryptionAlphabet;
+import com.javarush.cryptanalyzer.kavtasyev.constants.FilePaths;
 import com.javarush.cryptanalyzer.kavtasyev.entity.CustomData;
 import com.javarush.cryptanalyzer.kavtasyev.entity.Result;
 import com.javarush.cryptanalyzer.kavtasyev.repository.ResultCode;
@@ -16,7 +17,7 @@ public class PrintAlphabet extends Function
 		int count = 0;
 		char[] alphabet = EncryptionAlphabet.getAlphabet();
 
-		String path = "src/main/java/com/javarush/cryptanalyzer/kavtasyev/txt/CharTable.txt";
+		String path = FilePaths.OUTPUT_SERVICE_INFORMATION;
 
 		try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path)))
 		{
@@ -29,7 +30,7 @@ public class PrintAlphabet extends Function
 		}
 		catch (IOException e)
 		{
-			return new Result (ResultCode.ERROR, e.getMessage());
+			return new Result (ResultCode.ERROR, e);
 		}
 		return new Result(ResultCode.OK);
 	}

@@ -25,6 +25,7 @@ public class ConsoleView implements View
 			String str1;
 			String str2;
 
+
 			while (true)
 			{
 				mode = reader.readLine();
@@ -54,7 +55,7 @@ public class ConsoleView implements View
 						}
 						else if (str1.equals(""))
 						{
-							str1 = FilePaths.DEFAULT_FILE_FOR_ENCRYPT;
+							str1 = FilePaths.INPUT_DEFAULT_FILE_FOR_ENCRYPT;
 							System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[3]);
 						}
 
@@ -101,7 +102,10 @@ public class ConsoleView implements View
 						}
 
 					}
-					System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[2]);
+					if(str1.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_ENCRYPT))
+						System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[4]);
+					else
+						System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[2]);
 					customData = new CustomData(mode, str1, str2);
 				}
 				case (Mode.BRUTEFORCE_DECRYPT) ->
@@ -117,8 +121,16 @@ public class ConsoleView implements View
 						}
 						else if (str1.equals(""))
 						{
-							str1 = FilePaths.DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT;
-							System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[2]);
+							str1 = FilePaths.INPUT_DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT;
+							File file = new File(str1);
+							if (file.exists())
+								System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[2]);
+							else
+							{
+								System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[3]);
+								continue;
+							}
+
 						}
 						else if (!str1.endsWith(Conversation.PROPER_FILE_EXTENSION))
 						{
@@ -131,7 +143,10 @@ public class ConsoleView implements View
 							break;
 						System.out.println(Conversation.INEXISTENT_FILE);
 					}
-					System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[1]);
+					if (str1.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT))
+						System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[4]);
+					else
+						System.out.println(Conversation.CONVERSATION_ABOUT_BRUTE_FORCE_DECRYPT[1]);
 					customData = new CustomData(mode, str1);
 				}
 				case (Mode.STATISTICAL_DECRYPT) ->
@@ -147,8 +162,15 @@ public class ConsoleView implements View
 						}
 						else if (str1.equals(""))
 						{
-							str1 = FilePaths.DEFAULT_FILE_FOR_STATISTICAL_DECRYPT;
-							System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[3]);
+							str1 = FilePaths.INPUT_DEFAULT_FILE_FOR_STATISTICAL_DECRYPT;
+							File file = new File(str1);
+							if (file.exists())
+								System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[3]);
+							else
+							{
+								System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[5]);
+								continue;
+							}
 						}
 						else if (!str1.endsWith(Conversation.PROPER_FILE_EXTENSION))
 						{
@@ -189,7 +211,10 @@ public class ConsoleView implements View
 							break;
 						System.out.println(Conversation.INEXISTENT_FILE);
 					}
-					System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[2]);
+					if (str1.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT))
+						System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[6]);
+					else
+						System.out.println(Conversation.CONVERSATION_ABOUT_STATISTICS_DECRYPT[2]);
 					customData = new CustomData(mode, str1, str2);
 				}
 				case (Mode.PRINT_ALPHABET) ->
@@ -211,8 +236,8 @@ public class ConsoleView implements View
 	{
 		switch (result.getResultCode())
 		{
-			case OK -> System.out.println(ResultCode.OK.getMessage() + (result.getTime() == null ? "" : result.getTime()));
-			case ERROR -> System.out.println(ResultCode.ERROR.getMessage() + result.getException().getMessage());
+			case OK -> System.out.println(ResultCode.OK.getResultMessage() + (result.getTime() == null ? "" : result.getTime()));
+			case ERROR -> System.out.println(ResultCode.ERROR.getResultMessage() + result.getException().getMessage());
 		}
 	}
 }

@@ -3,6 +3,7 @@ package com.javarush.cryptanalyzer.kavtasyev;
 import com.javarush.cryptanalyzer.kavtasyev.app.Application;
 import com.javarush.cryptanalyzer.kavtasyev.controller.Controller;
 import com.javarush.cryptanalyzer.kavtasyev.entity.Result;
+import com.javarush.cryptanalyzer.kavtasyev.view.ConsoleView;
 import com.javarush.cryptanalyzer.kavtasyev.view.guiview.GUIView;
 import com.javarush.cryptanalyzer.kavtasyev.view.View;
 
@@ -16,7 +17,7 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		View view = new GUIView();								// new ConsoleView(); new GUIView();
+		View view = new ConsoleView();								// new ConsoleView(); new GUIView();
 		Controller Controller = new Controller(view);
 		Application application = new Application(Controller);
 
