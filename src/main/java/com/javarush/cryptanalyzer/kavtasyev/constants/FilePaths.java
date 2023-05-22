@@ -5,6 +5,9 @@ public class FilePaths
 	public static final String INPUT_DEFAULT_FILE_FOR_ENCRYPT = "input.txt";
 	public static final String OUTPUT_DEFAULT_FILE_FOR_ENCRYPT = "encoded.txt";
 
+	public static final String INPUT_DEFAULT_FILE_FOR_DECRYPT_WITH_KEY = "encoded.txt";
+	public static final String OUTPUT_DEFAULT_FILE_FOR_DECRYPT_WITH_KEY = "output.txt";
+
 	public static final String INPUT_DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT = "encoded.txt";
 	public static final String OUTPUT_DEFAULT_FILE_FOR_BRUTEFORCE_DECRYPT = "output.txt";
 

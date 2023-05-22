@@ -5,8 +5,9 @@ import com.javarush.cryptanalyzer.kavtasyev.functions.*;
 public enum FunctionCode
 {
 	ENCRYPT(new Encrypt()),
-	BRUTEFORCEDECRYPT(new BruteForceDecrypt()),
-	STATISTICALDECRYPT(new StatisticalDecrypt()),
+	DECRYPT(new Decrypt()),
+	BRUTEFORCE_DECRYPT(new BruteForceDecrypt()),
+	STATISTICAL_DECRYPT(new StatisticalDecrypt()),
 	PRINT_ALPHABET(new PrintAlphabet());
 
 	private final Function function;

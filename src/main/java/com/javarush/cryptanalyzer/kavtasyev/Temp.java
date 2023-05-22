@@ -1,6 +1,7 @@
 package com.javarush.cryptanalyzer.kavtasyev;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -10,20 +11,13 @@ public class Temp
 {
 	public static void main(String[] args) throws IOException
 	{
-		ArrayList<String> list = new ArrayList<>();
-		Collections.addAll(list, "мама мыла раму.", "рамено", "носорог", "мамонт");
-
-		char c1 = 'м', c2 = 'р';
-
-		ArrayList<String> newList = new ArrayList<>();
-		char temp = '$';
-		for (String s : list)
+		try (FileOutputStream fis = new FileOutputStream("input.txt"))
 		{
-			newList.add(s.replace(c1, temp).replace(c2, c1).replace(temp, c2));
+			fis.write(136);
 		}
-		for(String s1 : newList)
+		catch (IOException e)
 		{
-			System.out.println(s1);
+
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class ConsoleView implements View
 					continue;
 				}
 
-				if (mode.equals(Mode.ENCRYPT) || mode.equals(Mode.BRUTEFORCE_DECRYPT) || mode.equals(Mode.STATISTICAL_DECRYPT) || mode.equals(Mode.PRINT_ALPHABET))
+				if (mode.equals(Mode.ENCRYPT) || mode.equals(Mode.DECRYPT) || mode.equals(Mode.BRUTEFORCE_DECRYPT) || mode.equals(Mode.STATISTICAL_DECRYPT) || mode.equals(Mode.PRINT_ALPHABET))
 					break;
 				System.out.println(Conversation.INEXISTENT_COMMAND);
 			}
@@ -106,6 +106,69 @@ public class ConsoleView implements View
 						System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[4]);
 					else
 						System.out.println(Conversation.CONVERSATION_ABOUT_ENCRYPT[2]);
+					customData = new CustomData(mode, str1, str2);
+				}
+				case (Mode.DECRYPT) ->
+				{
+					System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[0]);
+					while (true)
+					{
+						str1 = reader.readLine();
+						if (str1.equals(Conversation.HELP))
+						{
+							System.out.println(Conversation.HELP_TEXT);
+							continue;
+						}
+						else if (str1.equals(""))
+						{
+							str1 = FilePaths.INPUT_DEFAULT_FILE_FOR_DECRYPT_WITH_KEY;
+							System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[1]);
+						}
+
+						else if (!str1.endsWith(Conversation.PROPER_FILE_EXTENSION))
+						{
+							System.out.println(Conversation.WRONG_FILE_PATH_FOR_ENCRYPT);
+							continue;
+						}
+
+						File file = new File(str1);
+
+						if (file.exists())
+							break;
+						System.out.println(Conversation.INEXISTENT_FILE);
+					}
+					System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[2]);
+					while (true)
+					{
+						str2 = reader.readLine();
+						if (str2.equals(Conversation.HELP))
+						{
+							System.out.println(Conversation.HELP_TEXT);
+							continue;
+						}
+						else if (str2.equals(""))
+						{
+							System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[3]);
+							continue;
+						}
+
+						try
+						{
+							int n = Integer.parseInt(str2);
+							while (n < 0)
+								n += EncryptionAlphabet.getAlphabetLength();
+							str2 = String.valueOf(n);
+							break;
+						}
+						catch (NumberFormatException e)
+						{
+							System.out.println(Conversation.INCORRECT_KEY);
+						}
+					}
+					if(str1.equals(FilePaths.INPUT_DEFAULT_FILE_FOR_DECRYPT_WITH_KEY))
+						System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[4]);
+					else
+						System.out.println(Conversation.CONVERSATION_ABOUT_DECRYPT_WITH_KEY[5]);
 					customData = new CustomData(mode, str1, str2);
 				}
 				case (Mode.BRUTEFORCE_DECRYPT) ->

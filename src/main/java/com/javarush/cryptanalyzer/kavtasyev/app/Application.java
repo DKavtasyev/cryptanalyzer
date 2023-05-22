@@ -30,8 +30,9 @@ public class Application
 		return switch (mode)
 				{
 					case ENCRYPT -> FunctionCode.ENCRYPT.getFunction();
-					case BRUTEFORCE_DECRYPT -> FunctionCode.BRUTEFORCEDECRYPT.getFunction();
-					case STATISTICAL_DECRYPT -> FunctionCode.STATISTICALDECRYPT.getFunction();
+					case DECRYPT -> FunctionCode.DECRYPT.getFunction();
+					case BRUTEFORCE_DECRYPT -> FunctionCode.BRUTEFORCE_DECRYPT.getFunction();
+					case STATISTICAL_DECRYPT -> FunctionCode.STATISTICAL_DECRYPT.getFunction();
 					case PRINT_ALPHABET -> FunctionCode.PRINT_ALPHABET.getFunction();
 					default -> null;
 				};
